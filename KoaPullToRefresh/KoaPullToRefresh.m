@@ -106,8 +106,8 @@ static char UIScrollViewPullToRefreshView;
     
     if(!showsPullToRefresh) {
         if (self.pullToRefreshView.isObserving) {
-            [self removeObserver:self.pullToRefreshView forKeyPath:@"contentOffset"];
-            [self removeObserver:self.pullToRefreshView forKeyPath:@"frame"];
+            @try{ [self removeObserver:self.pullToRefreshView forKeyPath:@"contentOffset"]; } @catch (NSException *exception) {}
+            @try{ [self removeObserver:self.pullToRefreshView forKeyPath:@"frame"]; } @catch (NSException *exception) {}
             [self.pullToRefreshView resetScrollViewContentInset];
             self.pullToRefreshView.isObserving = NO;
         }
@@ -169,9 +169,9 @@ static char UIScrollViewPullToRefreshView;
         if (scrollView.showsPullToRefresh) {
             if (self.isObserving) {
                 //If enter this branch, it is the moment just before "KoaPullToRefreshView's dealloc", so remove observer here
-                [scrollView removeObserver:self forKeyPath:@"contentOffset"];
-                [scrollView removeObserver:self forKeyPath:@"contentSize"];
-                [scrollView removeObserver:self forKeyPath:@"frame"];
+                @try{ [scrollView removeObserver:self forKeyPath:@"contentOffset"]; } @catch (NSException *exception) {}
+                @try{ [scrollView removeObserver:self forKeyPath:@"contentSize"]; } @catch (NSException *exception) {}
+                @try{ [scrollView removeObserver:self forKeyPath:@"frame"]; } @catch (NSException *exception) {}
                 self.isObserving = NO;
             }
         }
